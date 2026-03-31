@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfólio Literário — Imortal da Academia Vienense de Letras</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=IM+Fell+English:ital@0;1&family=Petit+Formal+Script&family=Josefin+Sans:wght@100;200;300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --parchment: #f5edd8;
+    --gold: #b8952a;
+    --gold-light: #d4af5a;
+    --gold-pale: #f0e4b8;
+    --sienna: #8b3a1a;
+    --sage: #5a6b4a;
+    --cream: #faf6ec;
+    --shadow: rgba(26,18,8,0.15);
+    --burgundy: #6b1a2a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(245,237,216,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(184,149,42,0.25);
+  }
+
+  .nav-monogram {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: 2rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 200;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0; right: 0;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 5rem 8rem 6rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; right: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+  }
+
+  .hero-eyebrow {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 100;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 3rem;
+    height: 1px;
+    background: var(--gold);
+    display: block;
+  }
+
+  .hero-name {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-size: clamp(3rem, 5.5vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    animation: fadeUp 1.2s ease forwards;
+    opacity: 0;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--sienna);
+  }
+
+  .hero-subtitle {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    color: var(--gold);
+    margin: 1.5rem 0 2.5rem;
+    animation: fadeUp 1.2s ease 0.2s forwards;
+    opacity: 0;
+  }
+
+  .hero-roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 3rem;
+    animation: fadeUp 1.2s ease 0.4s forwards;
+    opacity: 0;
+  }
+
+  .role-tag {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 200;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.4rem 1.2rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    background: transparent;
+  }
+
+  .hero-quote {
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: rgba(26,18,8,0.65);
+    border-left: 2px solid var(--gold);
+    padding-left: 1.5rem;
+    animation: fadeUp 1.2s ease 0.6s forwards;
+    opacity: 0;
+    max-width: 38ch;
+  }
+
+  .hero-right {
+    position: relative;
+    background: var(--ink);
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba(184,149,42,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(107,26,42,0.15) 0%, transparent 50%);
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IM Fell English', serif;
+    font-size: 20rem;
+    font-style: italic;
+    color: rgba(184,149,42,0.06);
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .hero-image-frame {
+    position: absolute;
+    inset: 4rem;
+    border: 1px solid rgba(184,149,42,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-image-frame::before,
+  .hero-image-frame::after {
+    content: '';
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    border-color: var(--gold);
+    border-style: solid;
+    border-width: 0;
+  }
+
+  .hero-image-frame::before {
+    top: -6px; left: -6px;
+    border-top-width: 1px;
+    border-left-width: 1px;
+  }
+
+  .hero-image-frame::after {
+    bottom: -6px; right: -6px;
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+  }
+
+  .hero-portrait-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .portrait-ornament {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: 4rem;
+    color: var(--gold-light);
+    opacity: 0.6;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .portrait-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 100;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(184,149,42,0.5);
+  }
+
+  /* ─── ORNAMENTAL DIVIDERS ─── */
+  .ornament {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1.2rem;
+    letter-spacing: 0.5em;
+    opacity: 0.6;
+    margin: 1rem 0;
+  }
+
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 5rem auto;
+    max-width: 60rem;
+    padding: 0 4rem;
+  }
+
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .divider-symbol {
+    font-size: 1.4rem;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    padding: 8rem 6rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .section-header {
+    margin-bottom: 5rem;
+  }
+
+  .section-number {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 100;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--sienna);
+  }
+
+  .section-intro {
+    font-size: 1.15rem;
+    line-height: 1.9;
+    color: rgba(26,18,8,0.7);
+    max-width: 60ch;
+    font-style: italic;
+  }
+
+  /* ─── ACADEMIA BADGE ─── */
+  .academia-section {
+    background: var(--ink);
+    color: var(--parchment);
+    padding: 8rem 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .academia-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(184,149,42,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(107,26,42,0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .academia-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .academia-seal {
+    aspect-ratio: 1;
+    border: 2px solid rgba(184,149,42,0.4);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem;
+    position: relative;
+    text-align: center;
+  }
+
+  .academia-seal::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(184,149,42,0.2);
+    border-radius: 50%;
+  }
+
+  .seal-symbol {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: 3.5rem;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+
+  .seal-title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 100;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    line-height: 1.8;
+  }
+
+  .academia-text h2 {
+    font-family: 'IM Fell English', serif;
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    color: var(--parchment);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .academia-text h2 em { color: var(--gold); font-style: italic; }
+
+  .academia-text p {
+    font-size: 1.1rem;
+    line-height: 1.95;
+    color: rgba(245,237,216,0.75);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .immortal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid rgba(184,149,42,0.5);
+    padding: 0.8rem 2rem;
+    margin-top: 1rem;
+  }
+
+  .immortal-badge .badge-icon { color: var(--gold); font-size: 1.2rem; }
+
+  .immortal-badge span {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 200;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+  }
+
+  /* ─── WORKS GRID ─── */
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--gold);
+    border: 2px solid var(--gold);
+  }
+
+  .work-card {
+    background: var(--cream);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+    cursor: default;
+  }
+
+  .work-card:hover { background: var(--parchment); }
+
+  .work-card::before {
+    content: attr(data-number);
+    position: absolute;
+    top: -1.5rem; right: 1.5rem;
+    font-family: 'IM Fell English', serif;
+    font-size: 8rem;
+    color: rgba(184,149,42,0.06);
+    font-style: italic;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .work-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .work-category {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 200;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .work-title {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.5rem;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    line-height: 1.25;
+  }
+
+  .work-title em { color: var(--sienna); font-style: italic; }
+
+  .work-desc {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: rgba(26,18,8,0.65);
+    font-style: italic;
+  }
+
+  /* ─── POETRY SECTION ─── */
+  .poetry-section {
+    background: var(--parchment);
+    padding: 8rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .poetry-section::before {
+    content: '"';
+    position: absolute;
+    top: -3rem; left: 4rem;
+    font-family: 'IM Fell English', serif;
+    font-size: 30rem;
+    color: rgba(184,149,42,0.07);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .poetry-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 6rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8rem;
+    align-items: start;
+  }
+
+  .poem-block {
+    position: relative;
+  }
+
+  .poem-block::before {
+    content: '';
+    position: absolute;
+    left: -2.5rem; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  .poem-title {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: 1.8rem;
+    color: var(--sienna);
+    margin-bottom: 2rem;
+  }
+
+  .poem-text {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 2.2;
+    color: var(--ink);
+  }
+
+  .poem-text p { margin-bottom: 1.5rem; }
+
+  .poem-attribution {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 200;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-top: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .poem-attribution::before {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  /* ─── CADERNOS ARTESANAIS ─── */
+  .cadernos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .caderno-card {
+    background: var(--ink);
+    aspect-ratio: 3/4;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    transition: transform 0.4s;
+  }
+
+  .caderno-card:hover { transform: translateY(-6px); }
+
+  .caderno-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 30%, rgba(26,18,8,0.9));
+  }
+
+  .caderno-spine {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 12px;
+    background: var(--gold);
+    opacity: 0.7;
+  }
+
+  .caderno-pattern {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6rem;
+    opacity: 0.12;
+    color: var(--gold);
+  }
+
+  .caderno-info { position: relative; z-index: 1; }
+
+  .caderno-number {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 100;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .caderno-title {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--parchment);
+    line-height: 1.3;
+  }
+
+  /* ─── OFICINAS ─── */
+  .oficinas-section {
+    background: linear-gradient(135deg, #f0e8d0 0%, #f5edd8 50%, #ece4cc 100%);
+    padding: 8rem 6rem;
+    position: relative;
+  }
+
+  .oficinas-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 4rem;
+  }
+
+  .oficina-item {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(184,149,42,0.2);
+  }
+
+  .oficina-item:last-child { border-bottom: none; }
+
+  .oficina-number {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 3rem;
+    color: var(--gold);
+    opacity: 0.4;
+    line-height: 0.9;
+    flex-shrink: 0;
+    width: 3rem;
+  }
+
+  .oficina-content h3 {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.4rem;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+  }
+
+  .oficina-content p {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: rgba(26,18,8,0.65);
+    font-style: italic;
+  }
+
+  /* ─── TIMELINE ─── */
+  .timeline {
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), rgba(184,149,42,0.1));
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 3.5rem 2.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 6px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--cream);
+  }
+
+  .timeline-year {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 200;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-event {
+    font-family: 'IM Fell English', serif;
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-detail {
+    font-size: 0.9rem;
+    color: rgba(26,18,8,0.55);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  /* ─── CONTACT / FOOTER ─── */
+  footer {
+    background: var(--ink);
+    color: var(--parchment);
+    padding: 6rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 4rem;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+  }
+
+  .footer-script {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-tagline {
+    font-style: italic;
+    color: rgba(245,237,216,0.5);
+    font-size: 0.95rem;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+
+  .footer-contact {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-bottom: 4rem;
+  }
+
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    align-items: center;
+  }
+
+  .contact-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 100;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+
+  .contact-value {
+    font-size: 0.9rem;
+    color: rgba(245,237,216,0.7);
+    font-style: italic;
+  }
+
+  .footer-copyright {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 100;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,237,216,0.25);
+    text-transform: uppercase;
+    border-top: 1px solid rgba(184,149,42,0.15);
+    padding-top: 2.5rem;
+    margin-top: 2rem;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ─── SCROLL INDICATOR ─── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 10;
+    animation: fadeUp 1.5s ease 1.2s both;
+  }
+
+  .scroll-hint span {
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 100;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(26,18,8,0.4);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 3rem;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.5; height: 2rem; }
+    50% { opacity: 1; height: 3.5rem; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 8rem 2rem 4rem; }
+
+    section { padding: 5rem 2rem; }
+    .works-grid { grid-template-columns: 1fr; }
+    .cadernos-grid { grid-template-columns: repeat(2, 1fr); }
+    .poetry-inner { grid-template-columns: 1fr; gap: 4rem; padding: 0 2rem; }
+    .academia-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .oficinas-list { grid-template-columns: 1fr; }
+    footer { padding: 4rem 2rem; }
+    .footer-contact { flex-direction: column; gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-monogram">AVL</a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#obras">Obras</a></li>
+    <li><a href="#poesia">Poesia</a></li>
+    <li><a href="#cadernos">Cadernos</a></li>
+    <li><a href="#oficinas">Oficinas</a></li>
+    <li><a href="#trajetoria">Trajetória</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Portfólio Literário & Artístico</div>
+    <h1 class="hero-name">Escritora<br><em>& Imortal</em></h1>
+    <div class="hero-subtitle">da Academia Vienense de Letras — MA</div>
+    <div class="hero-roles">
+      <span class="role-tag">Escritora</span>
+      <span class="role-tag">Professora</span>
+      <span class="role-tag">Poeta</span>
+      <span class="role-tag">Artesã</span>
+      <span class="role-tag">Imortal AVL·MA</span>
+    </div>
+    <blockquote class="hero-quote">
+      "As palavras são fios que tecem o invisível — a poesia é a mão que os guia, e o caderno artesanal, a tela onde a alma encontra forma."
+    </blockquote>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>Explorar</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-text">Ave</div>
+    <div class="hero-image-frame">
+      <div class="hero-portrait-placeholder">
+        <div class="portrait-ornament">✦<br>AVL</div>
+        <div class="portrait-label">Academia Vienense de Letras · MA</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<div class="section-divider reveal">
+  <div class="divider-symbol">❧</div>
+</div>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="section-header reveal">
+    <span class="section-number">01 — Quem Sou</span>
+    <h2 class="section-title">Voz que<br><em>atravessa mundos</em></h2>
+    <p class="section-intro">
+      Escritora, professora, poeta e artesã — uma criadora que habita as fronteiras entre a palavra escrita, a arte manual e o ensino como ato poético. Sua obra é um convite ao mergulho na linguagem, nos cadernos que se fazem mãos, nas oficinas que se fazem afeto.
+    </p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; margin-top: 3rem;" class="reveal">
+    <div>
+      <p style="font-size:1.05rem; line-height:2; color:rgba(26,18,8,0.7); font-style:italic; margin-bottom:1.5rem;">
+        Membro imortal da Academia Vienense de Letras do Maranhão, carrega a responsabilidade e a honra de preservar e renovar a tradição literária regional, mantendo vivo o diálogo entre o erudito e o popular, entre o local e o universal.
+      </p>
+      <p style="font-size:1.05rem; line-height:2; color:rgba(26,18,8,0.7); font-style:italic;">
+        Como professora, transforma o espaço da sala de aula em laboratório de criação, levando seus alunos a descobrirem que escrever é, antes de tudo, um gesto de existência. Como artesã, devolve à palavra sua dimensão tátil, concreta, palpável.
+      </p>
+    </div>
+    <div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <span class="timeline-year">Formação</span>
+          <div class="timeline-event">Trajetória Acadêmica e Literária</div>
+          <div class="timeline-detail">Formação sólida nas letras, pedagogia e artes, com especializações em literatura, escrita criativa e práticas artesanais.</div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">Magistério</span>
+          <div class="timeline-event">Professora & Educadora</div>
+          <div class="timeline-detail">Décadas dedicadas ao ensino da língua portuguesa, literatura e práticas expressivas — sementes de escritores em gerações.</div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">Academia</span>
+          <div class="timeline-event">Imortal da AVL·MA</div>
+          <div class="timeline-detail">Eleita membro imortal da Academia Vienense de Letras do Maranhão, honraria máxima do cenário literário regional.</div>
+        </div>
+        <div class="timeline-item">
+          <span class="timeline-year">Hoje</span>
+          <div class="timeline-event">Criação Contínua</div>
+          <div class="timeline-detail">Escrita, pesquisa, oficinas lúdicas e cadernos artesanais como prática diária de presença no mundo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMIA -->
+<div class="academia-section" id="academia">
+  <div class="academia-inner">
+    <div class="academia-seal reveal">
+      <div class="seal-symbol">AVL</div>
+      <div class="seal-title">
+        Academia Vienense<br>de Letras<br>— Maranhão —<br><br>Cadeira Imortal
+      </div>
+    </div>
+    <div class="academia-text reveal">
+      <h2>A Honra da<br><em>Imortalidade</em></h2>
+      <p>
+        A eleição para a Academia Vienense de Letras do Maranhão representa o mais alto reconhecimento literário que pode ser conferido a uma escritora da região. Ser imortal é assumir o compromisso com a memória da língua e com o futuro da literatura maranhense.
+      </p>
+      <p>
+        Como acadêmica, sua voz ecoa nos saraus, nas publicações, nas palestras e nas mesas de debates que moldam o pensamento literário do Maranhão — um estado de tradição poética inigualável no Brasil.
+      </p>
+      <div class="immortal-badge">
+        <span class="badge-icon">✦</span>
+        <span>Membro Imortal · Academia Vienense de Letras · MA</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OBRAS -->
+<section id="obras">
+  <div class="section-header reveal">
+    <span class="section-number">02 — Obras & Produções</span>
+    <h2 class="section-title">O universo<br><em>das criações</em></h2>
+    <p class="section-intro">
+      Da poesia à prosa, dos contos às crônicas — uma obra múltipla que atravessa gêneros e formas, sempre fiel à sua voz singular.
+    </p>
+  </div>
+
+  <div class="works-grid reveal">
+    <div class="work-card" data-number="I">
+      <span class="work-icon">🖋</span>
+      <span class="work-category">Literatura</span>
+      <h3 class="work-title">Prosa & <em>Ficção</em></h3>
+      <p class="work-desc">Narrativas que habitam as entranhas do cotidiano maranhense, revelando o extraordinário no aparentemente ordinário. Contos, romances e crônicas que capturam a alma de um povo.</p>
+    </div>
+    <div class="work-card" data-number="II">
+      <span class="work-icon">🌿</span>
+      <span class="work-category">Poesia</span>
+      <h3 class="work-title">Poemas & <em>Versos</em></h3>
+      <p class="work-desc">Uma lírica de raízes profundas e folhas ao vento — entre o erudito e o popular, entre o íntimo e o coletivo. Poesia que canta, que chora e que resiste.</p>
+    </div>
+    <div class="work-card" data-number="III">
+      <span class="work-icon">📜</span>
+      <span class="work-category">Crônica</span>
+      <h3 class="work-title">Crônicas & <em>Ensaios</em></h3>
+      <p class="work-desc">O olhar aguçado sobre o mundo, a memória e o tempo. Textos que oscilam entre a reflexão filosófica e a ternura do vivido — a crônica como forma de amor ao presente.</p>
+    </div>
+    <div class="work-card" data-number="IV">
+      <span class="work-icon">📚</span>
+      <span class="work-category">Educação</span>
+      <h3 class="work-title">Produção <em>Pedagógica</em></h3>
+      <p class="work-desc">Materiais didáticos, sequências de leitura e guias de escrita criativa — pontes entre a literatura e a sala de aula, entre o texto e a vida dos estudantes.</p>
+    </div>
+    <div class="work-card" data-number="V">
+      <span class="work-icon">🌹</span>
+      <span class="work-category">Literatura Infantil</span>
+      <h3 class="work-title">Escrita para <em>Pequenos</em></h3>
+      <p class="work-desc">Histórias que encantam, que ensinam e que abrem portas para o universo da imaginação. Uma voz que fala com a criança em sua própria língua, sem condescendência.</p>
+    </div>
+    <div class="work-card" data-number="VI">
+      <span class="work-icon">🎭</span>
+      <span class="work-category">Arte & Letra</span>
+      <h3 class="work-title">Texto & <em>Performance</em></h3>
+      <p class="work-desc">A palavra que sai do papel e ganha o espaço — recitais, saraus, performances literárias e leituras dramáticas que transformam a voz em instrumento poético.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="section-divider reveal">
+  <div class="divider-symbol">✦</div>
+</div>
+
+<!-- POESIA -->
+<div class="poetry-section" id="poesia">
+  <div class="poetry-inner">
+    <div class="poem-block reveal">
+      <div class="section-number" style="margin-bottom:1.5rem;">03 — Poesia</div>
+      <h2 class="section-title" style="margin-bottom:2.5rem;">A palavra<br><em>como matéria</em></h2>
+      <div class="poem-title">Tecelã de Palavras</div>
+      <div class="poem-text">
+        <p>Tejo o poema com fios de silêncio,<br>
+        cada verso um nó entre o dito<br>
+        e o que não caberá em língua alguma.</p>
+        <p>Sou a mão que busca<br>
+        e a linha que escapa —<br>
+        o caderno aberto na madrugada,<br>
+        a tinta que escorre como rio.</p>
+        <p>Palavras são sementes:<br>
+        planto-as na margem das páginas,<br>
+        rego com a memória dos avós,<br>
+        e espero o que o poema<br>
+        saberá dizer por si.</p>
+      </div>
+      <div class="poem-attribution">Poema autoral</div>
+    </div>
+
+    <div class="reveal" style="padding-top: 3rem;">
+      <p style="font-size:1.05rem; line-height:2; color:rgba(26,18,8,0.7); font-style:italic; margin-bottom:2.5rem;">
+        A poesia desta escritora não é ornamento — é fundação. Cada poema é uma estrutura cuidadosamente erguida onde a forma e o sentido se tocam, onde o ritmo carrega significado e o silêncio é tão importante quanto o verso.
+      </p>
+      <p style="font-size:1.05rem; line-height:2; color:rgba(26,18,8,0.7); font-style:italic; margin-bottom:2.5rem;">
+        Com influências que vão da tradição luso-brasileira às vozes contemporâneas, sua poética constrói um território próprio: íntimo e universal, enraizado e ao mesmo tempo suspenso — como toda boa poesia deve ser.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem;">
+        <div style="padding: 2rem; border: 1px solid rgba(184,149,42,0.3); background: rgba(245,237,216,0.5);">
+          <div class="section-number" style="margin-bottom:0.8rem;">Tema</div>
+          <div style="font-family:'IM Fell English',serif; font-size:1.1rem;">Memória & Identidade</div>
+        </div>
+        <div style="padding: 2rem; border: 1px solid rgba(184,149,42,0.3); background: rgba(245,237,216,0.5);">
+          <div class="section-number" style="margin-bottom:0.8rem;">Tema</div>
+          <div style="font-family:'IM Fell English',serif; font-size:1.1rem;">Natureza & Linguagem</div>
+        </div>
+        <div style="padding: 2rem; border: 1px solid rgba(184,149,42,0.3); background: rgba(245,237,216,0.5);">
+          <div class="section-number" style="margin-bottom:0.8rem;">Tema</div>
+          <div style="font-family:'IM Fell English',serif; font-size:1.1rem;">Feminino & Resistência</div>
+        </div>
+        <div style="padding: 2rem; border: 1px solid rgba(184,149,42,0.3); background: rgba(245,237,216,0.5);">
+          <div class="section-number" style="margin-bottom:0.8rem;">Tema</div>
+          <div style="font-family:'IM Fell English',serif; font-size:1.1rem;">O Sagrado Cotidiano</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CADERNOS ARTESANAIS -->
+<section id="cadernos">
+  <div class="section-header reveal">
+    <span class="section-number">04 — Cadernos Artesanais</span>
+    <h2 class="section-title">A página como<br><em>obra de arte</em></h2>
+    <p class="section-intro">
+      Criados à mão, costurados com afeto, decorados com técnicas milenares — os cadernos artesanais são extensões da própria escrita: objetos que têm alma antes mesmo da primeira palavra.
+    </p>
+  </div>
+
+  <div class="cadernos-grid reveal">
+    <div class="caderno-card">
+      <div class="caderno-spine"></div>
+      <div class="caderno-pattern">✦</div>
+      <div class="caderno-info">
+        <span class="caderno-number">Caderno I</span>
+        <div class="caderno-title">Encadernação Copta</div>
+      </div>
+    </div>
+    <div class="caderno-card">
+      <div class="caderno-spine" style="background: var(--sienna);"></div>
+      <div class="caderno-pattern">🌿</div>
+      <div class="caderno-info">
+        <span class="caderno-number">Caderno II</span>
+        <div class="caderno-title">Aquarela & Escrita</div>
+      </div>
+    </div>
+    <div class="caderno-card">
+      <div class="caderno-spine" style="background: var(--sage);"></div>
+      <div class="caderno-pattern">📿</div>
+      <div class="caderno-info">
+        <span class="caderno-number">Caderno III</span>
+        <div class="caderno-title">Diário Poético</div>
+      </div>
+    </div>
+    <div class="caderno-card">
+      <div class="caderno-spine" style="background: var(--burgundy);"></div>
+      <div class="caderno-pattern">🌸</div>
+      <div class="caderno-info">
+        <span class="caderno-number">Caderno IV</span>
+        <div class="caderno-title">Colagem & Verso</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:4rem; display:grid; grid-template-columns: repeat(3,1fr); gap:2rem;" class="reveal">
+    <div style="padding:2.5rem; background:var(--parchment); border-left: 3px solid var(--gold);">
+      <div class="section-number" style="margin-bottom:0.8rem;">Técnica</div>
+      <h3 style="font-family:'IM Fell English',serif; font-size:1.2rem; margin-bottom:0.8rem;">Encadernação Artesanal</h3>
+      <p style="font-size:0.9rem; line-height:1.8; color:rgba(26,18,8,0.65); font-style:italic;">Ponto copta, japonês, longstitch e espinha de peixe — cada caderno costurado à mão, página a página.</p>
+    </div>
+    <div style="padding:2.5rem; background:var(--parchment); border-left: 3px solid var(--sienna);">
+      <div class="section-number" style="margin-bottom:0.8rem;">Técnica</div>
+      <h3 style="font-family:'IM Fell English',serif; font-size:1.2rem; margin-bottom:0.8rem;">Papéis Especiais</h3>
+      <p style="font-size:0.9rem; line-height:1.8; color:rgba(26,18,8,0.65); font-style:italic;">Papel algodão, craft, kraft e canson — escolhidos pela textura, pela cor, pela forma como recebem a tinta.</p>
+    </div>
+    <div style="padding:2.5rem; background:var(--parchment); border-left: 3px solid var(--sage);">
+      <div class="section-number" style="margin-bottom:0.8rem;">Técnica</div>
+      <h3 style="font-family:'IM Fell English',serif; font-size:1.2rem; margin-bottom:0.8rem;">Arte Mista & Colagem</h3>
+      <p style="font-size:0.9rem; line-height:1.8; color:rgba(26,18,8,0.65); font-style:italic;">Aquarela, carimbos, tecidos, papéis de jornal, flores secas — a página como superfície de invenção.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OFICINAS LÚDICAS -->
+<div class="oficinas-section" id="oficinas">
+  <div style="max-width:1400px; margin:0 auto;">
+    <div class="section-header reveal">
+      <span class="section-number">05 — Oficinas Lúdicas</span>
+      <h2 class="section-title">O jogo como<br><em>caminho da criação</em></h2>
+      <p class="section-intro">
+        Nas oficinas lúdicas, a escrita se reinventa como brincadeira, como experimento, como festa — espaços onde qualquer pessoa descobre que tem uma história para contar.
+      </p>
+    </div>
+
+    <div class="oficinas-list reveal">
+      <div class="oficina-item">
+        <div class="oficina-number">I</div>
+        <div class="oficina-content">
+          <h3>Escrita Criativa & Libertação</h3>
+          <p>Exercícios lúdicos que desbloqueiam a voz interior — da escrita automática às narrativas coletivas, passando pelos cadernos de sensações e os mapas de palavras.</p>
+        </div>
+      </div>
+      <div class="oficina-item">
+        <div class="oficina-number">II</div>
+        <div class="oficina-content">
+          <h3>Poesia para Todos os Corpos</h3>
+          <p>Oficinas que ensinam que a poesia não exige erudição — só atenção ao mundo. Do haiku ao cordel, do verso livre à trova, cada participante encontra seu ritmo.</p>
+        </div>
+      </div>
+      <div class="oficina-item">
+        <div class="oficina-number">III</div>
+        <div class="oficina-content">
+          <h3>Cadernos Artesanais: Faça o Seu</h3>
+          <p>Oficina prática de encadernação e decoração de cadernos — aprender a fazer, com as próprias mãos, o objeto que vai receber suas palavras mais secretas.</p>
+        </div>
+      </div>
+      <div class="oficina-item">
+        <div class="oficina-number">IV</div>
+        <div class="oficina-content">
+          <h3>Literatura & Memória Afetiva</h3>
+          <p>Mergulho nas memórias da infância, dos lugares e das pessoas que nos formaram — a literatura como instrumento de autoconhecimento e cura.</p>
+        </div>
+      </div>
+      <div class="oficina-item">
+        <div class="oficina-number">V</div>
+        <div class="oficina-content">
+          <h3>Letras, Artes & Interdisciplinaridade</h3>
+          <p>A literatura em diálogo com as artes visuais, a música e o teatro — oficinas que cruzam linguagens e multiplicam possibilidades de expressão.</p>
+        </div>
+      </div>
+      <div class="oficina-item">
+        <div class="oficina-number">VI</div>
+        <div class="oficina-content">
+          <h3>Clube de Leitura Criativa</h3>
+          <p>Encontros onde a leitura é pretexto para a criação — ler um poema e escrever outro; ler um conto e transformá-lo; ler o mundo e dar-lhe palavras novas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<div class="section-divider reveal">
+  <div class="divider-symbol">❧</div>
+</div>
+
+<!-- TRAJETÓRIA -->
+<section id="trajetoria">
+  <div class="section-header reveal">
+    <span class="section-number">06 — Trajetória</span>
+    <h2 class="section-title">Uma vida<br><em>entre palavras</em></h2>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;" class="reveal">
+    <div class="timeline">
+      <div class="timeline-item">
+        <span class="timeline-year">Início</span>
+        <div class="timeline-event">Primeiros Escritos</div>
+        <div class="timeline-detail">Os primeiros versos surgem na infância, em cadernos escolares — a descoberta de que as palavras podem fazer morada dentro da gente.</div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">Formação</span>
+        <div class="timeline-event">Letras & Pedagogia</div>
+        <div class="timeline-detail">Formação nas letras e nas ciências da educação, unindo desde cedo o amor pela literatura e a vocação para o ensino.</div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">Magistério</span>
+        <div class="timeline-event">A Sala de Aula como Palco</div>
+        <div class="timeline-detail">Décadas como professora, transformando cada aula em oportunidade de despertar o leitor e o escritor que habita cada estudante.</div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">Publicações</span>
+        <div class="timeline-event">Livros & Antologias</div>
+        <div class="timeline-detail">Obra publicada em livros autorais e coletâneas, participação em antologias nacionais e regionais de literatura e poesia.</div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">Academia</span>
+        <div class="timeline-event">Imortal da AVL·MA</div>
+        <div class="timeline-detail">Eleita para a cadeira de membro imortal da Academia Vienense de Letras do Maranhão — o reconhecimento de uma vida dedicada às letras.</div>
+      </div>
+      <div class="timeline-item">
+        <span class="timeline-year">Hoje</span>
+        <div class="timeline-event">Criação & Partilha</div>
+        <div class="timeline-detail">Escrita, oficinas, cadernos artesanais e o ensino como formas de presença no mundo — a obra continua, viva e em permanente construção.</div>
+      </div>
+    </div>
+
+    <div>
+      <div style="background:var(--ink); color:var(--parchment); padding:3.5rem; margin-bottom:2rem; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:-2rem; right:1rem; font-family:'Petit Formal Script',cursive; font-size:10rem; color:rgba(184,149,42,0.08); pointer-events:none;">"</div>
+        <p style="font-family:'IM Fell English',serif; font-style:italic; font-size:1.15rem; line-height:2; position:relative; z-index:1;">
+          "Ensinar é plantar palavras em solos que ainda não sabem que são férteis. Escrever é descobrir que você própria é um desses solos — e que a colheita nunca tem fim."
+        </p>
+        <div class="poem-attribution" style="color:var(--gold); margin-top:1.5rem;">Sobre o Magistério e a Escrita</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(184,149,42,0.3);">
+        <div style="background:var(--parchment); padding:2rem; text-align:center;">
+          <div style="font-family:'IM Fell English',serif; font-style:italic; font-size:2.5rem; color:var(--gold);">∞</div>
+          <div class="section-number" style="text-align:center; margin-top:0.5rem;">Anos de magistério</div>
+        </div>
+        <div style="background:var(--parchment); padding:2rem; text-align:center;">
+          <div style="font-family:'IM Fell English',serif; font-style:italic; font-size:2.5rem; color:var(--sienna);">✦</div>
+          <div class="section-number" style="text-align:center; margin-top:0.5rem;">Imortal da AVL·MA</div>
+        </div>
+        <div style="background:var(--parchment); padding:2rem; text-align:center;">
+          <div style="font-family:'IM Fell English',serif; font-style:italic; font-size:2.5rem; color:var(--sage);">📖</div>
+          <div class="section-number" style="text-align:center; margin-top:0.5rem;">Obras publicadas</div>
+        </div>
+        <div style="background:var(--parchment); padding:2rem; text-align:center;">
+          <div style="font-family:'IM Fell English',serif; font-style:italic; font-size:2.5rem; color:var(--burgundy);">✂</div>
+          <div class="section-number" style="text-align:center; margin-top:0.5rem;">Cadernos artesanais</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-script">Academia Vienense de Letras · MA</div>
+  <p class="footer-tagline">
+    Escritora · Professora · Poeta · Artesã · Imortal<br>
+    <em>— Um legado tecido em palavras e afeto —</em>
+  </p>
+  <div class="footer-contact">
+    <div class="contact-item">
+      <span class="contact-label">Academia</span>
+      <span class="contact-value">Academia Vienense de Letras · MA</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Área de Atuação</span>
+      <span class="contact-value">Literatura · Poesia · Artes · Educação</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">Especialidade</span>
+      <span class="contact-value">Cadernos Artesanais · Oficinas Lúdicas</span>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    © Portfólio Literário & Artístico · Todos os direitos reservados · Academia Vienense de Letras — MA
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for scroll reveals
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth active nav link
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 200) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.style.opacity = a.getAttribute('href') === `#${current}` ? '1' : '0.7';
+    });
+  });
+</script>
+</body>
+</html>
